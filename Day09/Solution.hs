@@ -21,15 +21,15 @@ solve1 = scoreGroups 0 0
 -- Puzzle 2
 
 countGarbage :: Num a => a -> String -> a
-countGarbage count ('!':_:cs) = countGarbage count cs
-countGarbage count   ('>':cs) =    skipGroup count cs
+countGarbage count ('!':_:cs) = countGarbage      count  cs
+countGarbage count   ('>':cs) =    skipGroup      count  cs
 countGarbage count     (_:cs) = countGarbage (count + 1) cs
-countGarbage count [] = count
+countGarbage count         [] =                   count
 
 skipGroup :: Num a => a -> String -> a
 skipGroup count ('<':cs) = countGarbage count cs
-skipGroup count   (_:cs) = skipGroup count cs
-skipGroup count [] = count
+skipGroup count   (_:cs) =    skipGroup count cs
+skipGroup count       [] =              count
 
 solve2 :: String -> Integer
 solve2 = skipGroup 0
