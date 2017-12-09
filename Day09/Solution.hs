@@ -2,21 +2,21 @@ module Day09 where
 
 -- Puzzle 1
 
-skipGarbage :: (Num a, Num b) => a -> b -> b -> String -> b
-skipGarbage count nest score ('!':_:cs) = skipGarbage count nest score cs
-skipGarbage count nest score   ('>':cs) = scoreGroups count nest score cs
-skipGarbage count nest score     (_:cs) = skipGarbage count nest score cs
-skipGarbage     _    _ score         [] = score
+skipGarbage :: Num a => a -> a -> String -> a
+skipGarbage nest score ('!':_:cs) = skipGarbage nest score cs
+skipGarbage nest score   ('>':cs) = scoreGroups nest score cs
+skipGarbage nest score     (_:cs) = skipGarbage nest score cs
+skipGarbage    _ score         [] = score
 
-scoreGroups :: (Num a, Num b) => a -> b -> b -> String -> b
-scoreGroups count nest score ('{':cs) = scoreGroups (count + 1) (nest + 1) (score + nest + 1) cs
-scoreGroups count nest score ('}':cs) = scoreGroups      count  (nest - 1)             score  cs
-scoreGroups count nest score ('<':cs) = skipGarbage      count       nest              score  cs
-scoreGroups count nest score   (_:cs) = scoreGroups      count       nest              score  cs
-scoreGroups     _    _ score       [] = score
+scoreGroups :: Num a => a -> a -> String -> a
+scoreGroups nest score ('{':cs) = scoreGroups (nest + 1) (score + nest + 1) cs
+scoreGroups nest score ('}':cs) = scoreGroups (nest - 1)             score  cs
+scoreGroups nest score ('<':cs) = skipGarbage      nest              score  cs
+scoreGroups nest score   (_:cs) = scoreGroups      nest              score  cs
+scoreGroups    _ score       [] = score
 
 solve1 :: String -> Integer
-solve1 = scoreGroups (0 :: Int) 0 0
+solve1 = scoreGroups 0 0
 
 -- Puzzle 2
 
