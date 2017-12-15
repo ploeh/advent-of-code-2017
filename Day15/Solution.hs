@@ -21,11 +21,11 @@ lowest16Bits :: (Num a, Bits a) => a -> a
 lowest16Bits i = i .&. 0b1111111111111111
 
 judge :: (Bits a, Num a) => ([a], [a]) -> Int -> Int
-judge (ga, gb) l =
+judge (as, bs) l =
   length
   $ filter (uncurry (==))
   $ take l
-  $ zip (lowest16Bits <$> ga) (lowest16Bits <$> gb)
+  $ zip (lowest16Bits <$> as) (lowest16Bits <$> bs)
 
 solve1 :: (Integer, Integer) -> Int
 solve1 (seedA, seedB) = judge (generate1A seedA, generate1B seedB) 40000000
