@@ -2,7 +2,6 @@
 module Day15 where
 
 import Data.Bits (Bits, (.&.))
-import Data.List (unfoldr)
 
 -- Puzzle 1
 
@@ -10,8 +9,7 @@ denominator :: Integer
 denominator = 2147483647
 
 generate1 :: Integer -> Integer -> [Integer]
-generate1 factor = unfoldr (\prev -> Just (calc prev, calc prev))
-  where calc x = (x * factor) `rem` denominator
+generate1 factor = tail . iterate (\x -> (x * factor) `rem` denominator)
 
 generate1A, generate1B :: Integer -> [Integer]
 generate1A = generate1 16807
