@@ -54,8 +54,8 @@ tryFit targetPort candidate = imp
 componentStrength :: Num a => Component a -> a
 componentStrength (Component (x, y) _) = x + y
 
-bridgeStrength :: [Component Integer] -> Integer
-bridgeStrength = sum . map componentStrength
+bridgeStrength :: (Functor t, Foldable t, Num a) => t (Component a) -> a
+bridgeStrength = sum . fmap componentStrength
 
 -- Parsing
 
